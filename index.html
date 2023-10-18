@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
+    <title>ChatGPT Prompt Engineering</title>
+
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="center">
+                <h1>ChatGPT Prompt Engineering</h1>
+                <h4>Felipe de Paula Palmeira</h4>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3" style="position:relative;">
+                <div class="sumario">
+                    <strong><h5>Sumário</h5></strong>
+                    <nav>
+                        <ul>
+                            <li><a href="#sec_1">Introdução</a></li>
+                            <li><a href="#sec_2">Large Language Models (LLMs)</a></li>
+                            <li><a href="#sec_3">Principais características dos LLMs</a></li>
+                            <li><a href="#sec_4">Base LLM (LLM “Padrão”)</a></li>
+                            <li><a href="#sec_5">Instruction Tuned LLM (LLM Afinado por Instrução)</a></li>
+                            <li><a href="#sec_6">Princípios de Construção de Prompts</a></li>
+                            <li><a href="#sec_7">Tempo para o modelo pensar</a></li>
+                            <li><a href="#sec_8">Alucinações</a></li>
+                            <li><a href="#sec_9">Modelos de Interação</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="content">
+                    <!-- 1 - Introdução -->
+                    <section id="sec_1">
+                        <h2>Introdução</h2>
+                        <p>Prompt Engineering refere-se à prática de elaborar e otimizar instruções (ou "prompts") para obter respostas desejadas de modelos de linguagem, como o GPT-4 da OpenAI. Com o surgimento de modelos de linguagem cada vez mais avançados, saber como interagir efetivamente com esses modelos tornou-se crucial para aproveitar todo o seu potencial.</p>
+                    </section>
+
+                    <!-- 2 - Large Language Models (LLMs) -->
+                    <section class="mt-5" id="sec_2">
+                        <h2>Large Language Models (LLMs)</h2>
+                        <p>Antes de mergulharmos em Prompt Engineering, é útil entender o conceito de LLMs, ou Large Language Models (Modelos de Linguagem de Grande Escala).</p>
+                        
+                        <ol>
+                            <li><strong>Natureza dos LLMs:</strong></li>
+                            <p>LLMs, como o GPT-4, são treinados em grandes quantidades de texto e têm a capacidade de gerar texto coerente e contextualmente relevante com base em instruções recebidas. Entender a natureza e as capacidades de um LLM ajuda a formular prompts mais eficazes.</p>
+                            <li><strong>Generalidade vs. Especificidade:</strong></li>
+                            <p>LLMs são projetados para serem generalistas, o que significa que eles podem responder a uma ampla variedade de perguntas. Mas isso também significa que a forma como uma pergunta ou instrução é formulada pode influenciar fortemente a resposta. Compreender as nuances de LLMs permite formular prompts que levam a respostas mais precisas ou específicas.</p>
+                            <li><strong>Limitações:</strong></li>
+                            <p>Embora LLMs sejam poderosos, eles têm suas limitações, como a propensão a fornecer respostas prolixas ou, às vezes, informações incorretas. Ao compreender essas limitações, os engenheiros de prompts podem criar instruções que minimizem esses problemas.</p>
+                            <li><strong>Treinamento e Ajuste Fino:</strong></li>
+                            <p>LLMs são geralmente treinados em duas fases: pré-treinamento e ajuste fino. Compreender essa abordagem bifásica é importante para entender por que o modelo responde da maneira que o faz e como você pode influenciar suas respostas por meio de Prompt Engineering.</p>
+                            <li><strong>Interatividade:</strong></li>
+                            <p> Ao entender como os LLMs funcionam, os engenheiros de prompts podem desenvolver abordagens interativas, onde vários prompts são usados em sequência para guiar o modelo a uma resposta ou solução desejada.</p>
+                        </ol>
+
+                        <p>Portanto, antes de se aprofundar em Prompt Engineering, é essencial entender o que são LLMs, como eles funcionam e quais são suas capacidades e limitações. Isso fornece uma base sólida para elaborar prompts que maximizam a eficácia dos modelos de linguagem.</p>
+
+                        <p>Os Modelos de Linguagem de Grande Escala (Large Language Models ou LLMs) são um tipo de modelo de Inteligência Artificial avançado projetados para entender, gerar e interagir com a linguagem humana em uma escala e complexidade sem precedentes. Os LLMs são treinados usando técnicas de aprendizado profundo, especificamente arquiteturas de redes neurais como as Redes Neurais Recorrentes (RNNs) ou, mais comumente nos modelos mais recentes, os Transformers. </p>
+                    </section>
+
+                    <!-- 3 - Principais características dos LLMs -->
+                    <section class="mt-5" id="sec_3">
+                        <h2>Principais características dos LLMs</h2>
+                        <ol>
+                            <li><strong>Escala:</strong></li>
+                            <p>Os LLMs possuem uma dimensão significativa, caracterizada por bilhões ou trilhões de parâmetros. Estes parâmetros representam os ajustes que o modelo faz para processar e gerar linguagem adequadamente.</p>
+                            <li><strong>Dados de Treinamento:</strong></li>
+                            <p>Os LLMs são instruídos a partir de extensos conjuntos de dados textuais, abrangendo uma diversidade de fontes e tópicos, conferindo-lhes uma base de conhecimento ampla.</p>
+                            <li><strong>Generalidade:</strong></li>
+                            <p>Diferentemente de modelos especializados em domínios específicos, os LLMs são construídos para ter uma competência generalista, permitindo-lhes abordar uma vasta gama de tópicos e contextos.</p>
+                            <li><strong>Treinamento em Duas Fases:</strong></li>
+                            <p>O processo de treinamento dos LLMs envolve duas etapas críticas. Inicialmente, realizam o pré-treinamento em grandes volumes de texto para adquirir uma compreensão geral da linguagem. Posteriormente, são submetidos a um ajuste fino, utilizando conjuntos de dados mais específicos, para se adaptarem a tarefas ou domínios particulares.</p>
+                            <li><strong>Arquitetura:</strong></li>
+                            <p>Os LLMs empregam uma arquitetura denominada "Transformer", que é instrumental para processar informações textuais e discernir relações contextuais intrincadas dentro dos dados.</p>
+                            <li><strong>Tipos de Aprendizado:</strong></li>
+                            <p>Os LLMs são capacitados para abordar tarefas inéditas por meio de diferentes modalidades de aprendizado. Isso inclui abordagens onde eles podem operar com muitos exemplos, poucos exemplos, ou até mesmo na ausência de exemplos específicos para a tarefa em questão.</p>
+                        </ol>
+
+                        <p>Para nos aprofundarmos nos conceitos da engenharia de prompt vamos dividi os LLMs em dois tópicos:</p>
+
+                    </section>
+                    
+                    <!-- 4 - Base LLM (LLM “Padrão”) -->
+                    <section class="mt-5" id="sec_4">
+                        <h2>1. Base LLM (LLM “Padrão”)</h3>
+                        
+                        <p>Os Base LLMs são modelos treinados em vastos conjuntos de dados com o objetivo de compreender a estrutura geral da linguagem. Eles possuem uma capacidade generalista para gerar texto e responder a variadas perguntas, mas não são otimizados para tarefas específicas.</p>
+                        <p><strong>Exemplo:</strong> Imagine um sistema de assistência digital em uma plataforma de turismo. Ao ser questionado sobre atrações turísticas no Rio de Janeiro, um Base LLM poderia responder: "O Rio de Janeiro é famoso pelo Cristo Redentor, Pão de Açúcar, praias de Copacabana e Ipanema, entre outros marcos."</p>
+                    </section>
+
+                    <!-- 5 - Instruction Tuned LLM (LLM Afinado por Instrução) -->
+                    <section class="mt-5" id="sec_5">
+                        <h2>2. Instruction Tuned LLM (LLM Afinado por Instrução)</h3>
+                        
+                        <p>Os Instruction Tuned LLMs são modelos que, embora tenham um treinamento generalista inicial, são capazes de aderir a instruções específicas fornecidas em tempo real durante a interação. Estas instruções podem orientar o modelo em diversas dimensões, como estilo de escrita (formal, poético, conciso), tom emocional (positivo, crítico, neutro), abordagem (análise, resumo, comparação) e até mesmo estrutura (lista, parágrafo, diálogo).</p>
+                        <p><strong>Exemplo:</strong> Em uma plataforma de crítica literária, ao ser instruído: "Forneça uma análise do livro 'Dom Casmurro' em um tom elogioso e estilo poético", um Instruction Tuned LLM poderia responder: "'Dom Casmurro', de Machado de Assis, é uma sinfonia literária que ressoa os acordes da sociedade carioca do século XIX, com personagens que dançam ao ritmo da prosa mágica de Assis, encantando e envolvendo cada leitor em sua melodia."</p>
+
+                        <hr>
+
+                        <p>Neste artigo, o foco será o LLM Afinado por Instrução, um modelo que se destaca por sua capacidade de se ajustar a instruções específicas. Ele permite respostas personalizadas e precisas, tornando-se essencial para aplicações que buscam maior contextualização e refinamento.</p>
+                    </section>
+
+                    <!-- 6 - Princípios de Construção de Prompts -->
+                    <section class="mt-5" id="sec_6">
+                        <h2>Princípios de Construção de Prompts</h2>
+
+                        <p>A Engenharia de Prompt é uma disciplina crucial para extrair o máximo de modelos de linguagem como os LLMs. Para obter resultados confiáveis e eficazes de um modelo, é essencial saber como criar e ajustar prompts. Vamos introduzir os princípios de um bom prompt:</p>
+
+                        <ol>
+                            <li><strong>Clareza:</strong></li>
+                            <p>O prompt deve ser claro e direto. Ambiguidades podem resultar em respostas imprecisas ou generalistas. É essencial especificar exatamente o que se espera do modelo.</p>
+                            <li><strong>Especificidade:</strong></li>
+                            <p>Quanto mais específico for o prompt, menor será a margem para respostas indesejadas. Especificar o formato, tom ou contexto da resposta esperada pode ser útil.</p>
+                            <li><strong>Antecipação de Ambiguidades:</strong></li>
+                            <p>Ao criar um prompt, tente antecipar possíveis ambiguidades ou interpretações errôneas. Uma boa prática é se colocar no lugar do modelo e considerar todas as formas possíveis de interpretar o prompt.</p>
+                            <li><strong>Feedback Contextual:</strong></li>
+                            <p>Em algumas situações, pode ser útil fornecer ao modelo um contexto ou feedback sobre tentativas anteriores, guiando-o para uma resposta mais precisa.</p>
+                        </ol>
+
+                        <p>Para Clareza (1) e Especificidade (2), podemos utilizar algumas táticas para alcançar a maestria. Vejamos a seguir:</p>
+
+                        <ol>
+                            <li><strong>Usar delimitadores:</strong></li>
+                            <p>Empregar caracteres específicos para demarcar o início e o fim de uma instrução ajuda a estabelecer claramente a expectativa para o modelo. Delimitadores comuns, como aspas ou colchetes, sinalizam ao modelo a área exata sobre a qual ele deve se concentrar. Considere o seguinte prompt:</p>
+                            <i class="prompt">Faça um breve resumo do seguinte texto: <br> ”A água é fundamental para a existência humana, desempenhando um papel crucial em quase todas as funções biológicas do corpo. Ela hidrata, regula a temperatura corporal, transporta nutrientes e auxilia na eliminação de toxinas, sendo um elemento insubstituível para a saúde e sobrevivência.”</i> <br><br>
+                            <p>Aqui, o conteúdo de interesse está entre aspas. Isso assegura que o modelo mantenha seu foco no trecho delimitado, interpretando sua função de apenas resumir. Esse método previne que o modelo se desvie da instrução original, garantindo que ele não utilize informações do texto para alterar a direção do prompt.</p>
+
+                            <li><strong>Instruir por respostas estruturadas (como JSON ou HTML):</strong></li>
+                            <p>Encorajar o modelo a fornecer respostas em um formato estruturado pode facilitar a interpretação e a integração das respostas em aplicações ou sistemas específicos. Esse tipo de instrução é particularmente útil quando precisamos de detalhes específicos ou quando a resposta deve ser processada automaticamente por outro software. Considere o seguinte prompt:</p>
+                            <i class="prompt">Forneça informações sobre a água no seguinte formato JSON: <br>{ "importância": " ", "funções": [ ] } </i> <br><br>
+                            <p>Ao solicitar uma resposta em formato JSON, estamos guiando o modelo para uma resposta clara e estruturada. Isso não apenas facilita a leitura humana, mas também permite que sistemas informáticos processem e utilizem as informações de maneira eficiente. Esta tática ajuda a garantir que o modelo forneça respostas de acordo com as especificações desejadas, evitando ambiguidades ou interpretações errôneas.</p>
+
+                            <li><strong>Exemplificar modelo de resposta:</strong></li>
+                            <p>Fornecer ao modelo um exemplo concreto do tipo de resposta que você espera é uma maneira eficaz de guiá-lo na direção desejada. Ao fazer isso, você pode garantir que a resposta esteja alinhada em formato e estilo ao seu objetivo. Considere o seguinte prompt:</p>
+                            <i class="prompt">
+                                Sua tarefa é responder com o seguinte estilo: <br>
+                                [criança]: Ensine-me sobre paciência. <br>
+                                [avô]: O rio que escava o vale mais profundo flui de uma fonte modesta; a maior sinfonia origina-se de uma única nota; a tapeçaria mais complexa começa com um fio solitário.
+                                [criança]: Ensine-me sobre resiliência. <br>
+                                [avô]: {resposta}
+                            </i> <br><br>
+                            <p>Como resposta o modelo poderia devolver algo do tipo:</p>
+                            <i class="prompt">[avô]: A resiliência é como a árvore que, mesmo diante da tempestade mais forte, mantém-se firme, e quando perde algumas folhas, encontra forças para brotar novamente na próxima estação.</i>
+                        </ol>
+
+                        <p>Uma outra excelente tática para gerar bons prompts é o princípio de <strong>“Dar tempo para o modelo pensar”</strong>. Vamos ver como essa estratégia funciona.</p>
+                    </section>
+
+                    <!-- 7 - Tempo para o modelo pensar -->
+                    <section class="mt-5" id="sec_7">
+                        <h2>Tempo para o modelo pensar</h2>
+
+                        <ol>
+                            <li><strong>Especifique as etapas necessárias para concluir uma tarefa:</strong></li>
+                            <p>Ao interagir com o modelo, às vezes, a tarefa desejada pode exigir múltiplos passos de processamento. Ao invés de enviar cada instrução individualmente, é possível fornecer uma lista de etapas para que o modelo as execute em sequência, retornando uma resposta consolidada ao final. Esta estratégia é particularmente útil para tarefas mais complexas e multifacetadas. Considere o seguinte prompt um exemplo:</p>
+                            <i class="prompt">
+                                Execute as seguintes ações: <br>
+                                1 - Resuma o seguinte texto em apenas um parágrafo; <br>
+                                2 - Traduza o texto para Francês; <br>
+                                3 - Liste todos os personagens do texto; <br>
+                                4 - Devolva a resposta em formato JSON. <br>
+                                Texto: {texto de exemplo} <br>
+                            </i> <br>
+                            <p>Ao definir claramente as etapas, o modelo pode processar a instrução de forma segmentada, produzindo um resultado final que atende a todas as expectativas.</p>
+
+                            <li><strong>Instruir o modelo a elaborar sua própria solução antes de chegar a uma conclusão precipitada:</strong></li>
+                            <p>Quando se busca avaliar a correção ou exatidão de uma resposta, é fundamental que o modelo primeiramente compreenda e desenvolva sua própria solução ao problema proposto. Isso assegura que a avaliação seja baseada em um entendimento completo da questão, evitando avaliações apressadas ou imprecisas. Ao instruir o modelo a elaborar primeiro, promove-se uma avaliação mais ponderada e meticulosa. Considere o seguinte prompt:</p>
+                            <i class="prompt">
+                                Sua tarefa é determinar se a solução do estudante está correta. Antes de avaliar, elabore sua própria resposta para a questão proposta. Somente após resolver o problema por si mesmo, compare sua solução com a do aluno e avalie se ele acertou ou errou. Evite fazer julgamentos precipitados. <br>
+                                Questão: {questão} <br>
+                                Resposta do aluno: {resposta do aluno} <br>
+                            </i> <br>
+                            <p>Ao instruir o modelo dessa forma, garantimos uma análise mais meticulosa e justa da resposta fornecida, evitando conclusões precipitadas e aumentando a precisão da avaliação.</p>
+                        </ol>
+                    </section>
+
+                    <!-- 8 - Alucinações -->
+                    <section class="mt-5" id="sec_8">
+                        <h2>Alucinações</h2>
+
+                        <p>As "alucinações" no contexto dos modelos de linguagem, como os baseados na arquitetura GPT, referem-se às situações em que o modelo produz informações que não são precisas, verdadeiras ou relevantes para o contexto da pergunta ou instrução. Em outras palavras, são momentos em que o modelo "imagina" detalhes ou dados que não estão presentes nos seus treinamentos ou nas instruções dadas. Existem várias razões para essas alucinações ocorrerem:</p>
+
+                        <ol>
+                            <li><strong>Generalização Excessiva:</strong></li>
+                            <p>Devido ao vasto volume de dados com o qual foi treinado, o modelo pode, às vezes, generalizar a partir de padrões de linguagem observados, mesmo quando não são aplicáveis ao contexto atual.</p>
+
+                            <li><strong>Falta de Verificação de Fatos em Tempo Real:</strong></li>
+                            <p>Os modelos GPT não têm a capacidade de verificar fatos em tempo real. Eles operam com base no que aprenderam durante seu treinamento, sem acesso à informação atualizada ou à verificação externa.</p>
+
+                            <li><strong>Instruções Ambíguas ou Vagas:</strong></li>
+                            <p>Se o prompt fornecido ao modelo for ambíguo, ele pode tentar preencher as lacunas com informações que considera relevantes, mesmo que essas informações não sejam precisas.</p>
+
+                            <li><strong>Tendência a Produzir Respostas:</strong></li>
+                            <p>Em muitos casos, os modelos têm uma predisposição a fornecer uma resposta, mesmo que não estejam certos. Isso pode resultar em informações fabricadas ou incorretas, especialmente em tópicos altamente especializados ou em questões muito específicas.</p>
+
+                            <li><strong>Limitações do Dataset de Treinamento: </strong></li>
+                            <p>Se houver erros, distorções ou desequilíbrios no dataset de treinamento, o modelo pode reproduzir essas falhas em suas respostas.</p>
+                        </ol>
+
+                        <p>Para mitigar alucinações, os usuários e desenvolvedores podem empregar técnicas de engenharia de prompt, fazer perguntas de forma clara e específica, e ser críticos quanto às respostas geradas, sempre verificando informações críticas em fontes confiáveis. Também é útil compreender as limitações do modelo e reconhecer que, embora seja uma ferramenta poderosa, não é infalível.</p>
+                    </section>
+
+                    <!-- 9 - Modelos de Interação -->
+                    <section class="mt-5" id="sec_9">
+                        <h2>Modelos de Interação</h2>
+                        <p>Nesses links é possível encontrar algumas estratégias de uso da Inteligências Artificial em alguns nichos específicos:</p>
+
+                        <ul>
+                            <li><a href="#">Engenharia de Prompt para Marketing: Estratégias e Aplicações</a> - [Conteúdo em produção]</li>
+                            <li><a href="#">Engenharia de Prompt para Resumo de Textos: Estratégias e Aplicações</a> - [Conteúdo em produção]</li>
+                            <li><a href="">Engenharia de Prompt para construção de Sistemas</a> - [Conteúdo em produção]</li>
+                            <li><a href="#">Classificação de Textos utilizando Processamento de Linguagem Natural (NLP)</a> - [Conteúdo em produção]</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="js/scripts.js"></script>
+</body>
+</html>
